@@ -12,6 +12,7 @@ class TodoList(object):
   @staticmethod
   def loadInitialList():
     global todoListObject
+    todoListObject = []
     initialTodoListfile = open("Todo.txt", "r+")
     for line in initialTodoListfile.readlines():
       split_line = line.strip().split(",")  # {'Item': 'Clean House,low\n'} had to add this line to remove \n
@@ -22,38 +23,38 @@ class TodoList(object):
 
   @staticmethod
   def show_current_items():
-    global todoListObject
     for row in todoListObject:
       print(row)
 
   @staticmethod
-  def add_item():
+  def add_item(list):
     todoItem = input("Item: ")
     priority = input("Priority: ")
     newDict = {"Item": todoItem, "Priority": priority}
-    global todoListObject
-    todoListObject += [newDict]
+    list += [newDict]
     print("Item:", newDict['Item'], "has been added.")
 
   @staticmethod
-  def delete_item():
+  def delete_item(list):
     # declaring a count var and incrementing as it loops through so the user can specify a list index to remove
     count = 0
-    global todoListObject
-    for item in todoListObject:
+    for item in list:
       print(count, ")", item, sep='')
       count += 1
     itemToRemove = int(input('\n' + "Which item number did you want to remove? " '\n'))
-    todoListObject.pop(itemToRemove)
-    print("Item #:", itemToRemove, "removed")
+    # accounting for use case where user is trying to delete an index that doesn't exist
+    if itemToRemove > (len(list) - 1):
+      print("That item doesn't exist, please choose from the list.")
+    else:
+      list.pop(itemToRemove)
+      print("Item #:", itemToRemove, "removed")
 
   @staticmethod
-  def save_list():
+  def save_list(list):
     # open file in append mode
     fileToWriteTo = open("Todo.txt", "w")
     #  write result to file
-    global todoListObject
-    for row in todoListObject:
+    for row in list:
       fileToWriteTo.write(str(row['Item'] + "," + row['Priority'] + '\n'))
 
     # close the file
@@ -77,11 +78,11 @@ while True:
 	if int(choice) == 1:
 		TodoList.show_current_items()
 	elif int(choice) == 2:
-		TodoList.add_item()
+		TodoList.add_item(todoListObject)
 	elif int(choice) == 3:
-		TodoList.delete_item()
+		TodoList.delete_item(todoListObject)
 	elif int(choice) == 4:
-		TodoList.save_list()
+		TodoList.save_list(todoListObject)
 	else:
 		print("Exiting...")
 		break
