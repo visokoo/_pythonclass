@@ -11,7 +11,6 @@ class TodoList(object):
   # Grab data from text file and load into dictionary var via loop
   @staticmethod
   def loadInitialList():
-    # todoListobject = []
     global todoListObject
     initialTodoListfile = open("Todo.txt", "r+")
     for line in initialTodoListfile.readlines():
