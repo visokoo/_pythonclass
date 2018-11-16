@@ -5,7 +5,6 @@ Assignment 6
 1.	Take what you did in assignment5 and put them into functions and organize it as a class.
 '''
 
-todoListObject = []
 class TodoList(object):
 
   # Grab data from text file and load into dictionary var via loop
@@ -18,7 +17,17 @@ class TodoList(object):
       todoDict = {"Item": split_line[0], "Priority": split_line[1]}
       # Add the dictionary object that was just created and add it into a python list
       todoListObject += [todoDict]
+    initialTodoListfile.close()
     return todoListObject
+
+  @staticmethod
+  def display_menu():
+    print('\n' + "Things you can do with your list..." + '\n')
+    print("1) Show current data" + '\n' +
+          "2) Add a new item" + '\n' +
+          "3) Remove an existing item" + '\n' +
+          "4) Save Data to File" + '\n' +
+          "5) Exit Program, making no changes" + '\n')
 
   @staticmethod
   def show_current_items(list):
@@ -68,21 +77,17 @@ for row in TodoList.loadInitialList("Todo.txt"):
 # Give user numbered choices for specific actions using if/elif/else statements
 list = TodoList.loadInitialList("Todo.txt")
 while True:
-	print('\n' + "Things you can do with your list..." + '\n')
-	print("1) Show current data" + '\n' +
-				"2) Add a new item" + '\n' +
-				"3) Remove an existing item" + '\n' +
-				"4) Save Data to File" + '\n' +
-				"5) Exit Program, making no changes")
-	choice = input("Choose one of the above options to interact with the list: ")
-	if int(choice) == 1:
-		TodoList.show_current_items(list)
-	elif int(choice) == 2:
-		TodoList.add_item(list)
-	elif int(choice) == 3:
-		TodoList.delete_item(list)
-	elif int(choice) == 4:
-		TodoList.save_list(list)
-	else:
-		print("Exiting...")
-		break
+  TodoList.display_menu()
+  choice = input("Choose one of the above options to interact with the list: ")
+  print()
+  if int(choice) == 1:
+    TodoList.show_current_items(list)
+  elif int(choice) == 2:
+    TodoList.add_item(list)
+  elif int(choice) == 3:
+    TodoList.delete_item(list)
+  elif int(choice) == 4:
+    TodoList.save_list(list)
+  else:
+    print("Exiting...")
+    break
