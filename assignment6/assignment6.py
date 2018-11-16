@@ -10,10 +10,9 @@ class TodoList(object):
 
   # Grab data from text file and load into dictionary var via loop
   @staticmethod
-  def loadInitialList():
-    global todoListObject
+  def loadInitialList(file):
     todoListObject = []
-    initialTodoListfile = open("Todo.txt", "r+")
+    initialTodoListfile = open(file, "r+")
     for line in initialTodoListfile.readlines():
       split_line = line.strip().split(",")  # {'Item': 'Clean House,low\n'} had to add this line to remove \n
       todoDict = {"Item": split_line[0], "Priority": split_line[1]}
@@ -22,8 +21,8 @@ class TodoList(object):
     return todoListObject
 
   @staticmethod
-  def show_current_items():
-    for row in todoListObject:
+  def show_current_items(list):
+    for row in list:
       print(row)
 
   @staticmethod
@@ -63,10 +62,11 @@ class TodoList(object):
 
 # print list object contents to user
 print("Initial contents of your Todo list:" + '\n')
-for row in TodoList.loadInitialList():
+for row in TodoList.loadInitialList("Todo.txt"):
   print(row)
 
 # Give user numbered choices for specific actions using if/elif/else statements
+list = TodoList.loadInitialList("Todo.txt")
 while True:
 	print('\n' + "Things you can do with your list..." + '\n')
 	print("1) Show current data" + '\n' +
@@ -76,13 +76,13 @@ while True:
 				"5) Exit Program, making no changes")
 	choice = input("Choose one of the above options to interact with the list: ")
 	if int(choice) == 1:
-		TodoList.show_current_items()
+		TodoList.show_current_items(list)
 	elif int(choice) == 2:
-		TodoList.add_item(todoListObject)
+		TodoList.add_item(list)
 	elif int(choice) == 3:
-		TodoList.delete_item(todoListObject)
+		TodoList.delete_item(list)
 	elif int(choice) == 4:
-		TodoList.save_list(todoListObject)
+		TodoList.save_list(list)
 	else:
 		print("Exiting...")
 		break
