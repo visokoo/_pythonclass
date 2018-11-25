@@ -2,13 +2,9 @@
 '''
 ----------------------------------------------------
 Author: Vivian Ta
-LAB 8-3
-1) Make the FirstName and LastName attributes private in the constructor
-of your Person class.
-
-2) Add an accessors and mutators property procedures for the FirstName
-and LastName attributes.
-
+LAB 8-4
+1) Add code to return the FirstName and LastName attribute in the __str__
+method of your Person class.
 '''
 
 #--- Make the class ---
@@ -37,6 +33,9 @@ class Person(object):
 
     def ToString(self):
         return self.__FirstName + " " + self.__LastName
+
+    def __str__(self):
+        return self.ToString()
 #End of class
 
 # --- Use the class ----
@@ -47,4 +46,4 @@ objP2 = Person("Sue", "Poe")
 
 print(objP1.ToString())
 print("-------------")
-print(objP2.ToString())
+print(objP2)
