@@ -21,5 +21,3 @@ while True:
 add_to_file.seek(0)
 print(add_to_file.read())
 add_to_file.close()
-
-
