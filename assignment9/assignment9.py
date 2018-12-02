@@ -59,6 +59,7 @@ while (True):
       gIntLastId = intId
     except ValueError as e:
       print("Please enter an integer.")
+      break
     # Get Customer FirstName from the User
     strFirstName = str(input("Enter a Customer First Name: "))
     # Get Customer LastName from the User
@@ -80,6 +81,6 @@ if (strInput == "y"):
   # send program output
   print("Data has been saved in file.")
 else:
-  print("There was an issue saving the file.")
+  print("Data not saved.")
 
 print("This application has ended. Thank you!")
